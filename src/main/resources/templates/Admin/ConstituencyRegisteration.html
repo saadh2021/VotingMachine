@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Voter Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        .admin-login {
+            margin-top: 20px;
+        }
+
+        .admin-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .admin-button:hover {
+            background-color: #555;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 0.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 1em;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Constituency Registration</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/Voters">All Voters</a></li>
+        <li><a href="/admin/Candidates">All Candidates</a></li>
+        <li><a href="/admin/InviteVoters">Invite Candidate</a></li>
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/admin/CastVote">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+
+        </li>
+
+
+        <li><a href="/admin/ScheduleElections">Schedule Election</a></li>
+        <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+        <li th:if="${votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/admin/ElectionResults" >Election Results</a>
+
+
+        </li>
+
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+
+            <a href="/admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+        </li>
+
+        <li><a href="/admin/Logout">Logout</a></li>
+    </ul>
+</nav>
+
+<section>
+    <div class="form-container">
+        <h2>Register Constituency</h2>
+        <form id="registrationForm" th:action="@{SaveConstituency}" method="post">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+
+</section>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

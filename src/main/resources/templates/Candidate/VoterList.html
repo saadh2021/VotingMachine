@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        .ss-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .ss-button:hover {
+            background-color: #2980b9;
+        }
+
+        .login-button:hover {
+            background-color: #2980b9;
+        }
+
+        section {
+            padding: 2em;
+            text-align: right;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #050521;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 0.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 1em;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        section {
+            padding: 2em;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+
+<header>
+    <h1>Candidate Dashboard</h1>
+</header>
+
+<nav>
+    <ul>
+        <a href="/candidate/dashboard" class="button">Dashboard</a>
+        <a href="/candidate/Voters" class="button">Voters List</a>
+        <a href="#search" class="button">Search Voter</a>
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/candidate/CastVote">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+
+        </li>
+
+
+        <li th:if="${votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/candidate/ElectionResults" >Election Results</a>
+
+
+        </li>
+
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+
+            <a href="/candidate/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+        </li>
+
+        <li><a href="/candidate/Logout">Logout</a></li>    </ul>
+</nav>
+
+
+<body>
+
+<h2 class="header">Voter List</h2>
+
+<section>
+    <form th:action="@{/candidate/VotersByCNIC}" method="get">
+        <label for="search">Search by CNIC:</label>
+        <input type="text" id="search" name="search" placeholder="Enter CNIC...">
+        <button type="submit" class="ss-button">Search</button>
+    </form>
+</section>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>CNIC</th>
+        <th>Residential Constituency</th>
+        <!-- Add more columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${filteredVoter == null }" th:each="voter : ${voters}">
+
+        <td th:text="${voter.id}"></td>
+        <td th:text="${voter.name}"></td>
+        <td th:text="${voter.cnic}"></td>
+        <td th:text="${voter.residentialConstituency.constituencyName}"></td>
+
+        <!-- Add more cells for additional voter properties -->
+    </tr>
+
+    <tr th:if="${filteredVoter != null }" th:each="voter : ${filteredVoter}">
+        <td th:text="${filteredVoter.id}"></td>
+        <td th:text="${filteredVoter.name}"></td>
+        <td th:text="${filteredVoter.cnic}"></td>
+        <td th:text="${filteredVoter.residentialConstituency.constituencyName}"></td>
+
+        <!-- Add more cells for additional voter properties -->
+    </tr>
+
+
+    </tbody>
+</table>
+
+</body>
+</html>

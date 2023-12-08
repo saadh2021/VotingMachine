@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #050521;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+  }
+  nav {
+    background-color: #444;
+    color: #fff;
+    padding: 0.5em;
+  }
+
+  .form-container1 {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #fff;
+    padding: 1em;
+    display: block;
+  }
+
+  nav a:hover {
+    background-color: #555;
+  }
+
+  .admin-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .admin-button:hover {
+    background-color: #555;}
+
+  section {
+    padding: 2em;
+  }
+
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Dashboard</title>
+</head>
+
+<body>
+<header>
+  <h1>Candidate Dashboard</h1>
+</header>
+
+<nav>
+  <ul>
+    <a href="/candidate/dashboard" class="button">Dashboard</a>
+    <a href="/candidate/Voters" class="button">Voters List</a>
+    <a href="#search" class="button">Search Voter</a>
+    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+
+
+      <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+    </li>
+
+    <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
+
+
+      <a href="/candidate/CastVote">Cast Vote</a>
+
+    </li>
+
+    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+      <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+
+    </li>
+
+
+    <li th:if="${votingTimeDTO.votingStatus == 2 }">
+
+
+      <a href="/candidate/ElectionResults" >Election Results</a>
+
+
+    </li>
+
+    <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+
+      <a href="/candidate/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+    </li>
+  </ul>
+</nav>
+
+<section>
+  <div class="form-container1">
+    <h2>You have successfully casted you vote!</h2>
+     <button class="admin-button" onclick="location.href='/candidate/dashboard'">Go to Dashboard</button>
+
+  </div>
+</section>
+
+
+<footer>
+  <p>&copy; 2023 Election Management System</p>
+</footer>
+</body>
+
+</html>

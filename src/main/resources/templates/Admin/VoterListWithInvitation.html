@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter List</title>
+    <style>
+        /* Your existing styles remain unchanged */
+        /* New style for the invite button */
+        .invite-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .invite-button:hover {
+            background-color: #45a049;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        .ss-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .ss-button:hover {
+            background-color: #2980b9;
+        }
+
+        .login-button:hover {
+            background-color: #2980b9;
+        }
+
+        section {
+            padding: 2em;
+            text-align: right;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 0.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 1em;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        section {
+            padding: 2em;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        /* New style for the invite button */
+        .invite-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .invite-button:hover {
+            background-color: #45a049;
+        }
+
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        /* New style for the invite button */
+        .invite-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .invite-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<header>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/Voters">All Voters</a></li>
+        <li><a href="/admin/Candidates">All Candidates</a></li>
+        <li><a href="/admin/InviteVoters">Invite Candidate</a></li>
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
+
+
+            <a href="/admin/CastVote">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+
+
+        </li>
+
+
+        <li><a href="/admin/ScheduleElections">Schedule Election</a></li>
+        <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+        <li th:if="${votingTimeDTO.votingStatus == 2 }">
+
+
+            <a href="/admin/ElectionResults" >Election Results</a>
+
+
+        </li>
+
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+
+            <a href="/admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+        </li>
+
+        <li><a href="/admin/Logout">Logout</a></li>
+    </ul>
+</nav>
+
+<body>
+
+<h2 class="header">Voter List</h2>
+
+<section>
+    <form th:action="@{/admin/VotersByCNIC}" method="get">
+        <label for="search">Search by CNIC:</label>
+        <input type="text" id="search" name="search" placeholder="Enter CNIC...">
+        <button type="submit" class="ss-button">Search</button>
+    </form>
+</section>
+
+<!-- Thymeleaf form around the table -->
+<form th:action="@{/admin/SendInvite}" method="post" id="invite-form">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>CNIC</th>
+            <th>Residential Constituency</th>
+            <th>Invite</th>
+            <!-- Add more columns as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="voter : ${voters}">
+            <td th:text="${voter.id}" id="selectedVoterId" ></td>
+            <td th:text="${voter.name}"></td>
+            <td th:text="${voter.cnic}"></td>
+            <td th:text="${voter.residentialConstituency.constituencyName}"></td>
+            <td>
+                <!-- Invite button with an onclick event -->
+                <button type="submit" class="invite-button" name="selectedVoterId" th:value="${voter.cnic}">Invite</button>
+            </td>
+            <!-- Add more cells for additional voter properties -->
+        </tr>
+        </tbody>
+    </table>
+    <!-- Hidden input to store the selected voter ID for the invite -->
+
+</form>
+
+
+
+</body>
+</html>
