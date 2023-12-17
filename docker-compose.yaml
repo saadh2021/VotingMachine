@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  votemachinedb:
+    image: mysql:latest
+    container_name: votemachinedb
+    restart: always
+    environment:
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PORT: 3307
+      MYSQL_DATABASE: voter-machine
+    ports:
+      - "3307:3306"
+    networks:
+      - votemachine-network
+  vote-machine:
+    image: saadhanif2021/vote-machine:v1
+    container_name: votemachine-docker
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - votemachinedb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://votemachinedb:3306/voter-machine
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - spring.jpa.hibernate.ddl-auto=update
+    networks:
+      - votemachine-network
+volumes:
+  db_data: { }
+networks:
+  votemachine-network:

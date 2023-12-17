@@ -96,12 +96,12 @@
 
 <nav>
   <ul>
-    <li><a href="/admin/voters">All Voters</a></li>
+    <li><a href="/Admin/Voters">All Voters</a></li>
     <li><a href="#all-candidates">All Candidates</a></li>
     <li><a href="#invite-candidate">Invite Candidate</a></li>
     <li><a href="#cast-vote">Cast Vote</a></li>
     <li><a href="#schedule-election">Schedule Election</a></li>
-    <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+    <li><a href="/Admin/ConstituencyRegistration">Register Constituency</a></li>
   </ul>
 </nav>
 
@@ -113,7 +113,7 @@
 
 &lt;!&ndash; New search bar section &ndash;&gt;
 <section id="search-bar">
-  <form th:action="@{/admin/candidates}" method="get">
+  <form th:action="@{/Admin/Candidates}" method="get">
     <input type="text" name="search" placeholder="Search candidates...">
     <button type="submit">Search</button>
   </form>
@@ -299,58 +299,58 @@
 
 <nav>
     <ul>
-        <li><a href="/admin/dashboard">Dashboard</a></li>
-        <li><a href="/admin/Voters">All Voters</a></li>
-        <li><a href="/admin/Candidates">All Candidates</a></li>
-        <li><a href="/admin/InviteVoters">Invite Candidate</a></li>
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+        <li><a href="/Admin/Dashboard">Dashboard</a></li>
+        <li><a href="/Admin/Voters">All Voters</a></li>
+        <li><a href="/Admin/Candidates">All Candidates</a></li>
+        <li><a href="/Admin/InviteVoters">Invite Candidate</a></li>
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-        </li>
-
-        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-            <a href="/admin/CastVote">Cast Vote</a>
+            <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
         </li>
 
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+        <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+            <a href="/Admin/CastVote">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 3 }">
+
+
+            <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
         </li>
 
 
-        <li><a href="/admin/ScheduleElections">Schedule Election</a></li>
-        <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+        <li><a href="/Admin/ScheduleElections">Schedule Election</a></li>
+        <li><a href="/Admin/ConstituencyRegistration">Register Constituency</a></li>
         <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/ElectionResults" >Election Results</a>
+            <a href="/Admin/ElectionResults" >Election Results</a>
 
 
         </li>
 
-        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 or votingTimeDTO.votingStatus == 2}">
 
 
-            <a href="/admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+            <a href="/Admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
 
 
         </li>
 
-        <li><a href="/admin/Logout">Logout</a></li>
+        <li><a href="/Admin/Logout">Logout</a></li>
     </ul>
 </nav>
 
 <!-- New search bar section -->
 <section>
-    <form th:action="@{/admin/CandidatesByCnic}" method="get">
+    <form th:action="@{/Admin/CandidatesByCnic}" method="get">
         <label for="search">Search by CNIC:</label>
         <input type="text" id="search" name="search" placeholder="Enter CNIC...">
         <button type="submit" class="ss-button">Search</button>
@@ -379,8 +379,8 @@
         <td th:text="${Candidate.id}"></td>
         <td th:text="${Candidate.name}"></td>
         <td th:text="${Candidate.cnic}"></td>
-        <td th:text="${Candidate.residential_Constituency}"></td>
-        <td th:text="${Candidate.electionConstituency}"></td>
+        <td th:text="${Candidate.residentialConstituency.name}"></td>
+        <td th:text="${Candidate.electionConstituency.name}"></td>
         <td th:text="${Candidate.party.partyName}"></td>
         <td th:text="${Candidate.party.partySign}"></td>
         <!-- Add more cells for additional voter properties -->
@@ -390,7 +390,7 @@
         <td th:text="${filterCandidates.id}"></td>
         <td th:text="${filterCandidates.name}"></td>
         <td th:text="${filterCandidates.cnic}"></td>
-        <td th:text="${filterCandidates.residential_Constituency}"></td>
+        <td th:text="${filterCandidates.residentialConstituency}"></td>
         <td th:text="${filterCandidates.electionConstituency}"></td>
         <td th:text="${filterCandidates.party.partyName}"></td>
         <td th:text="${filterCandidates.party.partySign}"></td>

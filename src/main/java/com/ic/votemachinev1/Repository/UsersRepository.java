@@ -1,6 +1,7 @@
 package com.ic.votemachinev1.Repository;
 
 import com.ic.votemachinev1.Model.ConstituenciesEntity;
+import com.ic.votemachinev1.Model.UserAccountStatus;
 import com.ic.votemachinev1.Model.UserRolesEntity;
 import com.ic.votemachinev1.Model.UsersEntity;
 import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
@@ -17,12 +18,13 @@ import java.util.Optional;
 public interface UsersRepository  extends JpaRepository<UsersEntity, Long> {
 
     List<UsersEntity> findByRole(UserRolesEntity role);
-    List<UsersEntity> findByApprovedCandidateAndElectionConstituency(Boolean approvedCandidate, String electionConstituency);
+    List<UsersEntity> findByApprovedCandidateAndElectionConstituency(Boolean approvedCandidate, ConstituenciesEntity constituenciesEntity);
 
-
+    Optional<UsersEntity> findByCnicAndStatus(Long cnic, UserAccountStatus userAccountStatus);
 
     UsersEntity findByCnic(Long CNIC);
     UsersEntity findByName(String name);
+
 
   /*  @Query(value = "SELECT DISTINCT u.* FROM user u " +
             "JOIN constituencies_entity c ON u.residential_constituency_id = c.user_id " +
@@ -31,5 +33,5 @@ public interface UsersRepository  extends JpaRepository<UsersEntity, Long> {
 */
     //List<UsersEntity> findByConstituencyId(Long id);
     List<UsersEntity> findByResidentialConstituencyId(Long id);
-    Optional<UsersEntity> findByUserName(String userName);
+    Optional<UsersEntity> findByEmail(String email);
 }

@@ -46,6 +46,12 @@
             font-weight: bold;
         }
 
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+
         .form-group input {
             width: 100%;
             padding: 10px;
@@ -109,15 +115,31 @@
     </style>
 </head>
 <body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Assuming you have a Thymeleaf object named myObject
+    var myObject = /*[[${responseDTO.getMessage()}]]*/ null;
+
+    // Conditionally render JavaScript based on the value of myObject
+    if (myObject != null) {
+        alert([[${responseDTO.getMessage()}]].valueOf());
+        console.log("myObject is not null. Value: " + myObject);
+    } else {
+        console.log("myObject is null");
+    }
+    /*]]>*/
+</script>
 
 <div class="login-container">
     <h2>E-Voting System</h2>
 
-    <form id="login-form" th:action="@{auth/login}" th:method="post" enctype="multipart/form-data" class="login-form">
+    <form id="login-form" th:action="@{Auth/Login}" th:method="post" enctype="multipart/form-data" class="login-form">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required
+                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" maxlength="30" title="Enter a valid email address">
         </div>
+
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -125,14 +147,67 @@
         <div class="form-group">
             <label for="profilePicture">Profile Picture:</label>
             <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+            <small id="fileSizeError" style="color: red;"></small>
+            <small id="imageDimensionsError" style="color: red;"></small>
         </div>
         <button type="submit" class="login-button">Login</button>
         <br>
-        <button class="register-button" onclick="location.href='/VoterRegistration'">Register as a Voter</button>
+        <button class="register-button" onclick="location.href='/VoterRegistration'">Register Voter</button>
     </form>
 
 
 </div>
+<script>
+    // Get the email input element
+    var emailInput = document.getElementById("email");
 
+    // Add an event listener for the change event
+    emailInput.addEventListener("change", function() {
+        // Check if the input value matches the specified pattern
+        if (!emailInput.checkValidity()) {
+            alert("Enter a valid email address");
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("profilePicture").addEventListener("change", function () {
+        var fileInput = this;
+
+        if (fileInput.files && fileInput.files[0]) {
+            var file = fileInput.files[0];
+
+            // Check file size
+            var maxSizeInBytes = 1024 * 1024; // 1 MB
+            if (file.size > maxSizeInBytes) {
+                document.getElementById("fileSizeError").textContent = "File size must not exceed 1 MB.";
+                fileInput.value = ""; // Clear the selected file
+                return;
+            } else {
+                document.getElementById("fileSizeError").textContent = "";
+            }
+
+            // Check image dimensions
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function () {
+                    var maxWidth = 1080;
+                    var maxHeight = 1080;
+
+                    if (img.width > maxWidth || img.height > maxHeight) {
+                        document.getElementById("imageDimensionsError").textContent = "Image dimensions must not exceed 1080 pixels.";
+                        fileInput.value = ""; // Clear the selected file
+                    } else {
+                        document.getElementById("imageDimensionsError").textContent = "";
+                    }
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 </body>
 </html>

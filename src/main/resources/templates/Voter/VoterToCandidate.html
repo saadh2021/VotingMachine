@@ -100,7 +100,7 @@
 <section>
   <div class="form-container">
 
-    <form th:action="@{/voter/SaveCandidateApplication}" th:object="${voterToBeCandidate}" method="post">
+    <form th:action="@{/Voter/SaveCandidateApplication}" th:object="${voterToBeCandidate}" method="post">
         <label for="VoterName">Voter Name:</label>
         <input type="text" id="VoterName" th:field="${voterToBeCandidate.name}"  readonly="readonly"/>
         <label for="VoterCNIC">Voter CNIC:</label>
@@ -118,7 +118,7 @@
 
 
         <label for="ElectoralConstituency">Electoral Constituency:</label>
-        <select id="ElectoralConstituency" name="listAllConstituencies" th:field="*{electionConstituency}">
+        <select id="ElectoralConstituency" name="listAllConstituencies" th:field="*{electionConstituency.id}">
             <option th:each="constituency : ${listAllConstituencies}" th:value="${constituency.id}"
                     th:text="${constituency.constituencyName}"></option>
         </select>

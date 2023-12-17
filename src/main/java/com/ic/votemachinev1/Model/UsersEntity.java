@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,8 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 @Data
 public class UsersEntity implements UserDetails {
+    //Candidate Represents Which Party
+    @OneToOne
+    @JoinColumn(name = "party_id")
+    public PartiesEntity party;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -24,27 +31,26 @@ public class UsersEntity implements UserDetails {
     String name;
     @Column(unique = true)
 
-    String userName;
+    String email;
     String password;
-
     String userImg;
-
-    boolean vote_Casted;
+    boolean voteCasted;
     String votedForWhichParty;
     @ManyToOne()
     @JoinColumn(name = "constituency_id", referencedColumnName = "id")
     ConstituenciesEntity residentialConstituency;
-    String electionConstituency;
+    @ManyToOne
+    ConstituenciesEntity electionConstituency;
     Boolean approvedCandidate;
-
+    @Enumerated(EnumType.STRING)
+    UserAccountStatus status;
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     UserRolesEntity role;
-
-    //Candidate Represents Which Party
-    @OneToOne
-    @JoinColumn(name = "party_id")
-    public PartiesEntity party;
+    //    @Column(name = "otp")
+    private Integer otp;
+    //    @Column(name = "otp_expiration")
+    private LocalDateTime otpExpiration;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -53,7 +59,7 @@ public class UsersEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
     @Override
@@ -75,7 +81,6 @@ public class UsersEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 
 }

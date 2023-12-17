@@ -119,52 +119,52 @@
 </header>
 <nav>
     <ul>
-        <li><a href="/admin/dashboard">Dashboard</a></li>
-        <li><a href="/admin/Voters">All Voters</a></li>
-        <li><a href="/admin/Candidates">All Candidates</a></li>
-        <li><a href="/admin/InviteVoters">Invite Candidate</a></li>
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+        <li><a href="/Admin/Dashboard">Dashboard</a></li>
+        <li><a href="/Admin/Voters">All Voters</a></li>
+        <li><a href="/Admin/Candidates">All Candidates</a></li>
+        <li><a href="/Admin/InviteVoters">Invite Candidate</a></li>
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-        </li>
-
-        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-            <a href="/admin/CastVote">Cast Vote</a>
+            <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
         </li>
 
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+        <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+            <a href="/Admin/CastVote">Cast Vote</a>
+
+        </li>
+
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 3 }">
+
+
+            <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
         </li>
 
 
-        <li><a href="/admin/ScheduleElections">Schedule Election</a></li>
-        <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+        <li><a href="/Admin/ScheduleElections">Schedule Election</a></li>
+        <li><a href="/Admin/ConstituencyRegistration">Register Constituency</a></li>
         <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/admin/ElectionResults" >Election Results</a>
+            <a href="/Admin/ElectionResults" >Election Results</a>
 
 
         </li>
 
-        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 or votingTimeDTO.votingStatus == 2}">
 
 
-            <a href="/admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+            <a href="/Admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
 
 
         </li>
 
-        <li><a href="/admin/Logout">Logout</a></li>
+        <li><a href="/Admin/Logout">Logout</a></li>
     </ul>
 </nav>
 

@@ -45,7 +45,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 log.info(e.getMessage());
             }
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UsersEntity userDetails = this.userDetailsService.loadUserByUsername(userId);
+                UsersEntity userDetails = (UsersEntity) this.userDetailsService.loadUserByUsername(userId);
+               // UsersEntity userDetails = this.userDetailsService.loadUserByUsername(userId);
                 log.debug(userDetails.getRole().name());
                 Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
                 if (Boolean.TRUE.equals(validateToken)) {

@@ -1,10 +1,10 @@
 package com.ic.votemachinev1.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -15,8 +15,8 @@ import java.time.LocalTime;
 @Builder
 public class VotingTimeEntity {
     @Id
-    public Long id ;
-    public LocalTime startVotingTime;
+    Long id;
+    LocalTime startVotingTime;
     LocalTime endVotingTime;
     LocalDate startVotingDate;
     LocalDate endVotingDate;

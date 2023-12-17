@@ -80,9 +80,19 @@
         }
 
         .user-details {
+            font-weight: bold;
             color: #e7d9d9;
             flex-grow: 1;
         }
+
+       .user-details-response {
+           font-weight: bold;
+           font-style: italic;
+           color: #75ea0a;
+           flex-grow: 1;
+       }
+
+
 
         .status-container {
             margin-top: 10px;
@@ -153,49 +163,62 @@
 
 <nav>
     <ul>
-        <a href="/candidate/dashboard" class="button">Dashboard</a>
-        <a href="/candidate/Voters" class="button">Voters List</a>
+        <a href="/Candidate/Dashboard" class="button">Dashboard</a>
+        <a href="/Candidate/Voters" class="button">Voters List</a>
         <a href="#search" class="button">Search Voter</a>
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+        <a href="/Candidate/CastVote" class="button">Cast Vote</a>
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-        </li>
-
-        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-            <a href="/candidate/CastVote">Cast Vote</a>
+            <a href="/Candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
         </li>
 
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+        <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
+            <a href="/Candidate/CastVote">Cast Vote</a>
 
         </li>
 
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 3 }">
 
-        <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
-
-            <a href="/candidate/ElectionResults" >Election Results</a>
+            <a href="/Candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
         </li>
 
-        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+        <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 3 }">
 
 
-            <a href="/candidate/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+            <a href="/Candidate/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
         </li>
 
-        <li><a href="/candidate/Logout">Logout</a></li>
+
+
+
+
+
+        <li th:if="${votingTimeDTO.votingStatus == 3 }">
+
+
+            <a href="/Candidate/ElectionResults" >Election Results</a>
+
+
+        </li>
+
+        <li th:if="${votingTimeDTO.votingStatus == 2 or  votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+
+            <a href="/Candidate/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+        </li>
+
+        <li><a href="/Candidate/Logout">Logout</a></li>
 
     </ul>
 </nav>
@@ -205,17 +228,17 @@
         <div class="profile-container">
             <img class="profile-picture" th:src="'data:image/png;base64,' + ${profilePicture}" alt="Profile Picture">
             <div class="user-details">
-                <p>Welcome <span th:text="${userDetails.name}"></span></p>
+                <p>Welcome <span class="user-details-response" th:text="${userDetails.name}"></span></p>
                 <div class="status-container">
 
-                    <div th:if="${userDetails.vote_Casted == false}">
+                    <div th:if="${userDetails.voteCasted == false}">
 
-                        <p class="status-label" th:text="'Status: ' + ${'Vote Not Casted'}"></p>
+                        <p class="user-details-response"   th:text="'Status: ' + ${'Vote Not Casted'}"></p>
 
 
                     </div>
-                    <div th:unless="${userDetails.vote_Casted == false}">
-                        <p class="status-label" th:text="'Status: ' + ${'Vote Casted'}"></p>
+                    <div th:unless="${userDetails.voteCasted == false}">
+                        <p class="user-details-response" th:text="'Status: ' + ${'Vote Casted'}"></p>
 
 
                     </div>
@@ -224,7 +247,7 @@
                 <div class="status-container">
                     <p class="status-label">Election Schedule:</p>
                     <div th:if="${votingTimeDTO != null and votingTimeDTO.votingStatus == 0}">
-                        <p class="status-label" th:text="${'Election Not Scheduled'}"></p>
+                        <p class="user-details-response" th:text="${'Election Not Scheduled'}"></p>
                     </div>
 
                     <div th:if="${votingTimeDTO != null and votingTimeDTO.votingStatus == 1}">
@@ -267,7 +290,11 @@
                     </div>
 
                     <div th:if="${votingTimeDTO != null and votingTimeDTO.votingStatus == 2}">
-                        <p class="status-label" th:text="${'Election Finished'}"></p>
+                        <p class="user-details-response" th:text="${'Election Started'}"></p>
+                    </div>
+
+                    <div th:if="${votingTimeDTO != null and votingTimeDTO.votingStatus == 3}">
+                        <p class="user-details-response" th:text="${'Election Finished'}"></p>
                     </div>
 
                 </div>

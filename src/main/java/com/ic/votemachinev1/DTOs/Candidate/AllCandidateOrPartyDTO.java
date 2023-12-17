@@ -15,19 +15,17 @@ import lombok.Setter;
 public class AllCandidateOrPartyDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   public Long id;
-    public String name;
-    public String userName;
-    public String password;
-    public Long cnic;
-    public boolean vote_Casted;
-    public String votedForWhichParty;
-    public ConstituenciesEntity residential_Constituency;
-    public PartiesEntity party;
+    Long id;
+    String name;
+    String email;
+    String password;
+    Long cnic;
+    boolean voteCasted;
+    String votedForWhichParty;
+    ConstituenciesEntity residentialConstituency;
+    PartiesEntity party;
 
-    public Long electionConstituency;
-
-
+    ConstituenciesEntity electionConstituency;
 
 
 }

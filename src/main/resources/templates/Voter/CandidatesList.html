@@ -150,55 +150,55 @@
 
 <nav>
     <ul>
-        <a href="/voter/dashboard" class="button">Dashboard</a>
-         <a href="/voter/Candidates" class="button">List Candidates</a>
-        <a href="/voter/ApplyForCandidate" class="button">Apply For Candidates</a>
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+        <a href="/Voter/Dashboard" class="button">Dashboard</a>
+         <a href="/Voter/Candidates" class="button">List Candidates</a>
+        <a href="/Voter/ApplyForCandidate" class="button">Apply For Candidates</a>
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 1 }">
 
 
-            <a href="/voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-        </li>
-
-        <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-            <a href="/voter/CastVote">Cast Vote</a>
+            <a href="/Voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
         </li>
 
-        <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+        <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 2 }">
 
 
-            <a href="/voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
+            <a href="/Voter/CastVote">Cast Vote</a>
 
         </li>
 
+        <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 3 }">
 
-        <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
-
-            <a href="/voter/ElectionResults" >Election Results</a>
+            <a href="/Voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
         </li>
 
-        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
+
+        <li th:if="${votingTimeDTO.votingStatus == 3 }">
 
 
-         <a href="/voter/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+            <a href="/Voter/ElectionResults" >Election Results</a>
 
 
         </li>
 
-        <li><a href="/voter/Logout">Logout</a></li>
+        <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0  or  votingTimeDTO.votingStatus == 2 }">
+
+
+         <a href="/Voter/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+
+
+        </li>
+
+        <li><a href="/Voter/Logout">Logout</a></li>
     </ul>
 </nav>
 
 <!-- New search bar section -->
 <section>
-    <form th:action="@{/voter/votersByCnic}" method="get">
+    <form th:action="@{/Voter/VotersByCnic}" method="get">
         <label for="search">Search by CNIC:</label>
         <input type="text" id="search" name="search" placeholder="Enter CNIC...">
         <button type="submit" class="ss-button">Search</button>
@@ -227,8 +227,8 @@
         <td th:text="${Candidate.id}"></td>
         <td th:text="${Candidate.name}"></td>
         <td th:text="${Candidate.cnic}"></td>
-        <td th:text="${Candidate.residential_Constituency}"></td>
-        <td th:text="${Candidate.electionConstituency}"></td>
+        <td th:text="${Candidate.residentialConstituency.constituencyName}"></td>
+        <td th:text="${Candidate.electionConstituency.constituencyName}"></td>
         <td th:text="${Candidate.party.partyName}"></td>
         <td th:text="${Candidate.party.partySign}"></td>
         <!-- Add more cells for additional voter properties -->
@@ -238,7 +238,7 @@
         <td th:text="${filterCandidates.id}"></td>
         <td th:text="${filterCandidates.name}"></td>
         <td th:text="${filterCandidates.cnic}"></td>
-        <td th:text="${filterCandidates.residential_Constituency}"></td>
+        <td th:text="${filterCandidates.residentialConstituency}"></td>
         <td th:text="${filterCandidates.electionConstituency}"></td>
         <td th:text="${filterCandidates.party.partyName}"></td>
         <td th:text="${filterCandidates.party.partySign}"></td>

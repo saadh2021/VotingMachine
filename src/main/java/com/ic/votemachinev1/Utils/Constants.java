@@ -2,42 +2,46 @@ package com.ic.votemachinev1.Utils;
 
 public class Constants {
     public static final String[] AUTH_WHITELIST = {
-            /*"/admin/login",
+            /*"/Admin/login",
             "/login",
-            "/voter/**",
-            "/voter/SendApprovalRequest/**",
-            "/voter/SaveCandidateApplication",
-            "/voter/SendApprovalRequest",
+            "/Voter/**",
+            "/Voter/SendApprovalRequest/**",
+            "/Voter/SaveCandidateApplication",
+            "/Voter/SendApprovalRequest",
             "/category/get-categories",
-            "/admin/dashboard",
-            "/admin/voters",
-            "/admin/Candidates",
-            "/admin/candidates",
-            "/admin/**",
-            "/voter/ApplyForCandidate",
-            "/candidate/**",*/
+            "/Admin/Dashboard",
+            "/Admin/Voters",
+            "/Admin/Candidates",
+            "/Admin/Candidates",
+            "/Admin/**",
+            "/Voter/ApplyForCandidate",
+            "/Candidate/**",*/
             "/login",
-            "/auth/login",
-            "/auth/login/**",
+            "/Auth/Login",
+            "/Auth/Login/**",
             "/VoterRegistration",
             "/SaveVoter",
+            "/OTPVerification",
+            "/TestData",
+            "/favicon.ico",
+            "/invalidateSession"
 
 
     };
     public static final String[] Voter_LIST = {
-            "/voter/**",
+            "/Voter/**",
             "voter/VoterDashboard",
             "order/get-all-orders",
             "/category/create",
     };
 
     public static final String[] ADMIN_LIST = {
-             "/admin/dashboard",
-             "/admin/**",
+             "/Admin/Dashboard",
+             "/Admin/**",
     };
 
     public static final String[] CANDIDATE_LIST = {
-            //"/candidate/**",
+            //"/Candidate/**",
             "order/get-all-orders",
             "/category/create",
     };

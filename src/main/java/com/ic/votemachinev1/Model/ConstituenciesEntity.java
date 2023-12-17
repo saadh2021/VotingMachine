@@ -17,10 +17,14 @@ public class ConstituenciesEntity {
     @GeneratedValue
     Long id;
     @Column(unique = true)
-    String constituencyName;
+    public String constituencyName;
 
 
     @JsonIgnore
     @OneToMany(mappedBy = "residentialConstituency",cascade = CascadeType.ALL)
     List<UsersEntity> voters;
+
+    /*@JsonIgnore
+    @OneToMany(mappedBy = "electionConstituency",cascade = CascadeType.ALL)
+    List<UsersEntity> candidate;*/
 }

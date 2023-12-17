@@ -10,9 +10,9 @@ import lombok.Setter;
 @Data
 public class VoterDTOToFetch {
 
-   public Long Id;
-   public String name;
-   public Long cnic;
+    Long Id;
+    String name;
+    Long cnic;
 
    String email;
    String password;

@@ -98,18 +98,58 @@
     document.addEventListener("DOMContentLoaded", function () {
       // Get current date and time
       var currentDate = new Date();
-      var currentDateString = currentDate.toISOString().slice(0, 10);
+      var currentDateString = currentDate.toLocaleDateString('en-CA'); // Adjust the locale as needed
       var currentTimeString = ("0" + currentDate.getHours()).slice(-2) + ":" + ("0" + currentDate.getMinutes()).slice(-2);
 
       // Set the min attribute of the date input to the current date
-      document.getElementById("startVotingDate").min = currentDateString;
-      document.getElementById("endVotingDate").min = currentDateString;
+      var startVotingDateInput = document.getElementById("startVotingDate");
+      var endVotingDateInput = document.getElementById("endVotingDate");
+
+      startVotingDateInput.min = currentDateString;
+      endVotingDateInput.min = currentDateString; // Set initial minimum end date
 
       // Set the value and min attributes of the time input to the current time
       document.getElementById("startVotingTime").value = currentTimeString;
       document.getElementById("startVotingTime").min = currentTimeString;
+
+      // Add event listener to the form for validation
+      document.getElementById("schedule-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!validateDateTime()) {
+          return false;
+        }
+        // If validation passed, submit the form
+        this.submit();
+      });
+
+      // Validation function
+      function validateDateTime() {
+        var startDate = new Date(startVotingDateInput.value);
+        var startTime = document.getElementById('startVotingTime').value;
+
+        var endDate = new Date(endVotingDateInput.value);
+        var endTime = document.getElementById('endVotingTime').value;
+
+        var startDateTime = new Date(startDate.toDateString() + ' ' + startTime);
+        var endDateTime = new Date(endDate.toDateString() + ' ' + endTime);
+
+        if (startDate > endDate || (startDate.getTime() === endDate.getTime() && startDateTime > endDateTime)) {
+          alert('End date and time cannot be before start date and time.');
+          return false;
+        }
+
+        return true;
+      }
+
+      // Add event listener to the start date input for updating the min end date
+      startVotingDateInput.addEventListener("input", function () {
+        endVotingDateInput.min = this.value;
+      });
     });
   </script>
+
+
+
 </head>
 <body>
 
@@ -124,39 +164,39 @@
 
 <nav>
   <ul>
-    <li><a href="/admin/dashboard">Dashboard</a></li>
-    <li><a href="/admin/Voters">All Voters</a></li>
-    <li><a href="/admin/Candidates">All Candidates</a></li>
-    <li><a href="/admin/InviteVoters">Invite Candidate</a></li>
-    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+    <li><a href="/Admin/Dashboard">Dashboard</a></li>
+    <li><a href="/Admin/Voters">All Voters</a></li>
+    <li><a href="/Admin/Candidates">All Candidates</a></li>
+    <li><a href="/Admin/InviteVoters">Invite Candidate</a></li>
+    <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 1 }">
 
 
-      <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-    </li>
-
-    <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-      <a href="/admin/CastVote">Cast Vote</a>
+      <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
     </li>
 
-    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+    <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 1 }">
 
 
-      <a href="/admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+      <a href="/Admin/CastVote">Cast Vote</a>
+
+    </li>
+
+    <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+      <a href="/Admin/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
     </li>
 
 
-    <li><a href="/admin/ScheduleElections">Schedule Election</a></li>
-    <li><a href="/admin/constituentyregistration">Register Constituency</a></li>
+    <li><a href="/Admin/ScheduleElections">Schedule Election</a></li>
+    <li><a href="/Admin/ConstituencyRegistration">Register Constituency</a></li>
     <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
 
-      <a href="/admin/ElectionResults" >Election Results</a>
+      <a href="/Admin/ElectionResults" >Election Results</a>
 
 
     </li>
@@ -164,17 +204,18 @@
     <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
 
 
-      <a href="/admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+      <a href="/Admin/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
 
 
     </li>
   </ul>
 </nav>
 
+
 <div class="container">
   <h2>Schedule Election</h2>
 
-  <form id="schedule-form" th:action="@{/admin/SaveScheduleElections}" th:object="${VotingSchedule}" th:method="post">
+  <form id="schedule-form" th:action="@{/Admin/SaveScheduleElections}" th:object="${VotingSchedule}" th:method="post">
     <div class="form-group">
       <label for="startVotingDate">Election Start Date:</label>
       <input type="date" id="startVotingDate" name="startVotingDate" th:field="*{startVotingDate}" required>

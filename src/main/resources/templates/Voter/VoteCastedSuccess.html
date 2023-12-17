@@ -88,27 +88,27 @@
 
 <nav>
   <ul>
-    <a href="/voter/dashboard" class="button">Dashboard</a>
-     <a href="/voter/Candidates" class="button">List Candidates</a>
-        <a href="/voter/ApplyForCandidate" class="button">Apply For Candidates</a>
-    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 1 }">
+    <a href="/Voter/Dashboard" class="button">Dashboard</a>
+     <a href="/Voter/Candidates" class="button">List Candidates</a>
+        <a href="/Voter/ApplyForCandidate" class="button">Apply For Candidates</a>
+    <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 1 }">
 
 
-      <a href="/voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
-
-    </li>
-
-    <li th:if="${userDetails.vote_Casted == false  and votingTimeDTO.votingStatus == 1 }">
-
-
-      <a href="/voter/CastVote">Cast Vote</a>
+      <a href="/Voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
     </li>
 
-    <li th:if="${userDetails.vote_Casted == true  and votingTimeDTO.votingStatus == 2 }">
+    <li th:if="${userDetails.voteCasted == false  and votingTimeDTO.votingStatus == 1 }">
 
 
-      <a href="/voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
+      <a href="/Voter/CastVote">Cast Vote</a>
+
+    </li>
+
+    <li th:if="${userDetails.voteCasted == true  and votingTimeDTO.votingStatus == 2 }">
+
+
+      <a href="/Voter/CastVote" style="pointer-events: none; opacity: 0.5;">Cast Vote</a>
 
 
     </li>
@@ -117,7 +117,7 @@
     <li th:if="${votingTimeDTO.votingStatus == 2 }">
 
 
-      <a href="/voter/ElectionResults" >Election Results</a>
+      <a href="/Voter/ElectionResults" >Election Results</a>
 
 
     </li>
@@ -125,7 +125,7 @@
     <li th:if="${votingTimeDTO.votingStatus == 1 or  votingTimeDTO.votingStatus == 0 }">
 
 
-      <a href="/voter/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
+      <a href="/Voter/ElectionResults" style="pointer-events: none; opacity: 0.5;">Election Results</a>
 
 
     </li>
@@ -135,7 +135,7 @@
 <section>
   <div class="form-container1">
     <h2>You have successfully casted you vote!</h2>
-     <button class="admin-button" onclick="location.href='/voter/dashboard'">Go to Dashboard</button>
+     <button class="admin-button" onclick="location.href='/Voter/Dashboard'">Go to Dashboard</button>
 
   </div>
 </section>

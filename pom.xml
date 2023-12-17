@@ -10,8 +10,8 @@
     </parent>
 
     <groupId>com.ic</groupId>
-    <artifactId>Vote-Machine-v1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>vote-machine</artifactId>
+    <version>v1</version>
     <name>Vote-Machine-v1</name>
     <description>Vote-Machine-v1</description>
     <properties>
