@@ -4,10 +4,7 @@ import com.ic.votemachinev1.Model.ConstituenciesEntity;
 import com.ic.votemachinev1.Model.UserAccountStatus;
 import com.ic.votemachinev1.Model.UserRolesEntity;
 import com.ic.votemachinev1.Model.UsersEntity;
-import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

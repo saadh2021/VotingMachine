@@ -1,8 +1,5 @@
-package com.ic.votemachinev1;
+package com.ic.votemachinev1.Service;
 
-import com.ic.votemachinev1.DTOs.Candidate.CandidatesOrPartyDTO;
-import com.ic.votemachinev1.DTOs.DateTimeDTO.VotingTimeDTO;
-import com.ic.votemachinev1.Model.VotingTimeEntity;
 import com.ic.votemachinev1.Repository.VotingTimeRepository;;
 import com.ic.votemachinev1.Service.Imp.CommonServiceImp;
 import com.ic.votemachinev1.Utils.SessionData;
@@ -14,9 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Collections;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

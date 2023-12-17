@@ -1,16 +1,9 @@
 package com.ic.votemachinev1;
 
 import com.cloudinary.Cloudinary;
-import com.ic.votemachinev1.Model.ConstituenciesEntity;
-import com.ic.votemachinev1.Model.UserAccountStatus;
-import com.ic.votemachinev1.Model.UserRolesEntity;
-import com.ic.votemachinev1.Model.UsersEntity;
-import com.ic.votemachinev1.Repository.ConstituencyRepository;
 import com.ic.votemachinev1.Repository.UsersRepository;
-import com.ic.votemachinev1.Security.JWTUtility;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @SpringBootApplication
 @RequiredArgsConstructor

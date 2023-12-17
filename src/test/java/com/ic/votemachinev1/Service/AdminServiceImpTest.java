@@ -1,4 +1,4 @@
-package com.ic.votemachinev1;
+package com.ic.votemachinev1.Service;
 
 import com.ic.votemachinev1.DTOs.DateTimeDTO.VotingTimeDTO;
 import com.ic.votemachinev1.Repository.ConstituencyRepository;

@@ -1,14 +1,11 @@
 package com.ic.votemachinev1.Service.Imp;
 
 import com.ic.votemachinev1.DTOs.Party.PartyDTO;
-import com.ic.votemachinev1.DTOs.Voter.VoterDTO;
 import com.ic.votemachinev1.Model.PartiesEntity;
-import com.ic.votemachinev1.Model.UsersEntity;
 import com.ic.votemachinev1.Repository.PartiesRepository;
 import com.ic.votemachinev1.Service.PartiesService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

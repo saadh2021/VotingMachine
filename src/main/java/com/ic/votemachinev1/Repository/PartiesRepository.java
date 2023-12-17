@@ -1,6 +1,5 @@
 package com.ic.votemachinev1.Repository;
 
-import com.ic.votemachinev1.Model.ConstituenciesEntity;
 import com.ic.votemachinev1.Model.PartiesEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

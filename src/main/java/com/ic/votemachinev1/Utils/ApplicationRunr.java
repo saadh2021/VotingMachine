@@ -5,7 +5,6 @@ import com.ic.votemachinev1.Repository.ConstituencyRepository;
 import com.ic.votemachinev1.Repository.UsersRepository;
 import com.ic.votemachinev1.Repository.VotingTimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
