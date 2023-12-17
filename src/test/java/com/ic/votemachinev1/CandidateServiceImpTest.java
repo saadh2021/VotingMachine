@@ -1,12 +1,12 @@
 package com.ic.votemachinev1;
 
+import com.ic.votemachinev1.DTOs.Candidate.CandidatesOrPartyDTO;
 import com.ic.votemachinev1.DTOs.DateTimeDTO.VotingTimeDTO;
-import com.ic.votemachinev1.Repository.ConstituencyRepository;
-import com.ic.votemachinev1.Repository.UsersRepository;
-import com.ic.votemachinev1.Service.Imp.AdminServiceImp;
+import com.ic.votemachinev1.Model.VotingTimeEntity;
+import com.ic.votemachinev1.Repository.VotingTimeRepository;;
 import com.ic.votemachinev1.Service.Imp.CommonServiceImp;
-import com.ic.votemachinev1.Service.Imp.EmailService;
-import com.ic.votemachinev1.Service.VotingTimeService;
+import com.ic.votemachinev1.Utils.SessionData;
+import com.ic.votemachinev1.Service.Imp.CandidateServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,28 +15,25 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class AdminServiceImpTest {
-
-    @Mock
-    private UsersRepository userRepository;
-
-    @Mock
-    private ConstituencyRepository constituencyRepository;
-
-    @Mock
-    private EmailService emailService;
-
-    @Mock
-    private VotingTimeService votingTimeService;
+class CandidateServiceImpTest {
 
     @Mock
     private CommonServiceImp commonService;
 
+    @Mock
+    private SessionData sessionData;
+
+    @Mock
+    private VotingTimeRepository votingTimeRepository;
+
     @InjectMocks
-    private AdminServiceImp adminService;
+    private CandidateServiceImp candidateService;
 
     @BeforeEach
     void setUp() {
@@ -48,20 +45,19 @@ class AdminServiceImpTest {
         Model model = mock(Model.class);
 
         // Mock behavior for commonServiceImp methods
-        when(commonService.votingTimeEntity()).thenReturn(new VotingTimeDTO());
         when(commonService.ShowProfilePic()).thenReturn("profile_picture");
 
+        // Mock behavior for sessionData method
+        when(sessionData.getUsersEntity()).thenReturn(null);
 
         // Call the method to be tested
-        ModelAndView result = adminService.ShowDashBoard(model);
+        ModelAndView result = candidateService.ShowDashBoard(model);
 
         // Assertions
-        assertEquals("Admin/AdminDashboard", result.getViewName());
-        verify(model).addAttribute(eq("votingTimeDTO"), any(VotingTimeDTO.class));
+        assertEquals("Candidate/CandidateDashboard", result.getViewName());
         verify(model).addAttribute(eq("profilePicture"), eq("profile_picture"));
     }
 
     // Add more test cases for other methods as needed
 
 }
-
